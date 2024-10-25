@@ -11,6 +11,7 @@ def add_transaction(data):  # add a transaction to the data
     date = input(
         "Enter date (DD-MM-YYYY): "
     )  # asking the user to input a date for the transaction
+
     print("\nSelect Transaction Type:")
     print("1: Income")
     print("2: Spending")
@@ -31,7 +32,7 @@ def add_transaction(data):  # add a transaction to the data
 
     while (
         not float_read
-    ):  # sets up loop that will keep running until something changes to True
+    ):  # sets up loop that will keep running until float_read changes to True
         try:
             amount = float(input("Enter amount: $"))  # read the amount
             float_read = (
@@ -43,7 +44,7 @@ def add_transaction(data):  # add a transaction to the data
             )  # print the issue reading the digit and loop repeats
 
     new_transaction = (
-        pd.DataFrame(  # creating a new data frame using the Pandas library
+        pd.DataFrame(  # creates a new data frame with the following columns
             {
                 "Date": [date],
                 "Type": [transaction_type],
@@ -93,12 +94,15 @@ def view_transactions(data):
     print(data)
 
 
+# check whether the finance_data.csv file exists
 if os.path.exists("finance_data.csv"):
+    # load the data from the file
     data = pd.read_csv("finance_data.csv")
 else:
+    # create an empty DataFrame
     data = pd.DataFrame(columns=["Date", "Type", "Category", "Amount"])
 
-
+# main loop
 while True:
     print("\nMenu:")
     print("1. Add Transaction")
@@ -107,6 +111,7 @@ while True:
     print("4. View Transactions")
     print("5. Exit")
 
+    # ask the user to choose an option
     choice = input("Enter your choice (1-5): ")
 
     if choice == "1":
